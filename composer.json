@@ -1,0 +1,39 @@
+{
+    "name": "ufo-tech/component-transport-contracts",
+    "description": "Shared asynchronous transport contracts and resolver factory for UFO-Tech components",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex Maistrenko",
+            "email": "ashterix69@gmail.com"
+        }
+    ],
+    "keywords": [
+        "ufo",
+        "async",
+        "transport",
+        "contracts",
+        "messenger"
+    ],
+    "require": {
+        "php": ">=8.3",
+        "symfony/messenger": "^7.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ufo\\Component\\TransportContracts\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ufo\\Component\\TransportContracts\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
