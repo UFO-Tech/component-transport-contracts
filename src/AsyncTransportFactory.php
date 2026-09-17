@@ -2,14 +2,12 @@
 
 namespace Ufo\Component\TransportContracts;
 
-use Symfony\Component\Messenger\Transport\TransportFactoryInterface;
 use Ufo\Component\TransportContracts\Exceptions\TransportNotFoundException;
 
 use function in_array;
 use function parse_url;
-use function str_starts_with;
 
-class RPCAsyncTransportFactory
+class AsyncTransportFactory
 {
     /**
      * @var iterable<AsyncTransportResolverInterface>

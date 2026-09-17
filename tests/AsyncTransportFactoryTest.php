@@ -7,9 +7,9 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Ufo\Component\TransportContracts\Exceptions\TransportNotFoundException;
 use Ufo\Component\TransportContracts\AsyncTransportResolverInterface;
-use Ufo\Component\TransportContracts\RPCAsyncTransportFactory;
+use Ufo\Component\TransportContracts\AsyncTransportFactory;
 
-class RPCAsyncTransportFactoryTest extends TestCase
+class AsyncTransportFactoryTest extends TestCase
 {
     public function testSelectsResolverBySchemeAndCachesByDsn(): void
     {
@@ -17,7 +17,7 @@ class RPCAsyncTransportFactoryTest extends TestCase
         $amqp->expects(self::exactly(2))->method('getSupportSchemes')->willReturn(['amqp', 'amqps']);
         $kafka = $this->createMock(AsyncTransportResolverInterface::class);
         $kafka->expects(self::once())->method('getSupportSchemes')->willReturn(['kafka']);
-        $factory = new RPCAsyncTransportFactory(new ArrayIterator([$amqp, $kafka]));
+        $factory = new AsyncTransportFactory(new ArrayIterator([$amqp, $kafka]));
 
         self::assertSame($kafka, $factory->getTransportResolver('kafka://broker/events'));
         self::assertSame($kafka, $factory->getTransportResolver('kafka://broker/events'));
@@ -31,7 +31,7 @@ class RPCAsyncTransportFactoryTest extends TestCase
         $second = $this->createMock(AsyncTransportResolverInterface::class);
         $second->expects(self::never())->method('getSupportSchemes');
 
-        self::assertSame($first, (new RPCAsyncTransportFactory([$first, $second]))->getTransportResolver('amqp://broker'));
+        self::assertSame($first, (new AsyncTransportFactory([$first, $second]))->getTransportResolver('amqp://broker'));
     }
 
     public static function unsupportedDsns(): iterable
@@ -48,12 +48,12 @@ class RPCAsyncTransportFactoryTest extends TestCase
         $resolver->method('getSupportSchemes')->willReturn(['amqp']);
         $this->expectException(TransportNotFoundException::class);
         $this->expectExceptionMessage(AsyncTransportResolverInterface::class);
-        (new RPCAsyncTransportFactory([$resolver]))->getTransportResolver($dsn);
+        (new AsyncTransportFactory([$resolver]))->getTransportResolver($dsn);
     }
 
     public function testEmptyRegistryThrows(): void
     {
         $this->expectException(TransportNotFoundException::class);
-        (new RPCAsyncTransportFactory([]))->getTransportResolver('amqp://broker');
+        (new AsyncTransportFactory([]))->getTransportResolver('amqp://broker');
     }
 }

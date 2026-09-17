@@ -5,7 +5,7 @@ namespace Ufo\Component\TransportContracts\Exceptions;
 use Exception;
 use Ufo\Component\TransportContracts\AbstractAsyncTransportResolver;
 use Ufo\Component\TransportContracts\AsyncTransportResolverInterface;
-use Ufo\Component\TransportContracts\RPCAsyncTransportFactory;
+use Ufo\Component\TransportContracts\AsyncTransportFactory;
 
 use function sprintf;
 
@@ -20,7 +20,7 @@ class TransportNotFoundException extends Exception
             $dsn,
             AsyncTransportResolverInterface::class,
             AbstractAsyncTransportResolver::class,
-            RPCAsyncTransportFactory::class
+            AsyncTransportFactory::class
         ));
     }
 

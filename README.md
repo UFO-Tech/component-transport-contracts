@@ -14,9 +14,9 @@ extend `AbstractAsyncTransportResolver`, then pass your resolvers to the factory
 
 ```php
 use Ufo\Component\TransportContracts\AsyncStampDTO;
-use Ufo\Component\TransportContracts\RPCAsyncTransportFactory;
+use Ufo\Component\TransportContracts\AsyncTransportFactory;
 
-$factory = new RPCAsyncTransportFactory($resolvers);
+$factory = new AsyncTransportFactory($resolvers);
 $dsn = 'amqp://localhost/%2f/messages';
 $resolver = $factory->getTransportResolver($dsn);
 $transport = $resolver->getTransport($dsn);
